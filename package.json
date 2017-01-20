@@ -1,0 +1,11 @@
+{
+  "name": "taberna",
+  "version": "1.0.0",
+  "description": "backend for android app created in hackfest 2017",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "nakul havelia",
+  "license": "ISC"
+}
