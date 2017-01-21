@@ -12,5 +12,7 @@ module.exports = function(app){
   app.get("/changepass/:info", user.changePassword); //password-number
   app.get("/search/:info", items.search); //search string
   app.get("/list/:info", items.get); //get subcategory
+  app.get("/getprice/:info", items.price); //image-image....
+  app.get("/getroute/:info", items.getRoute); //image-image....
   app.use(router);
 };
