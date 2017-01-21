@@ -5,11 +5,6 @@ var cors = require('cors');
 var items = require("./controllers/items.controller");
 module.exports = function(app){
   app.use(cors());
-  /*app.use(function(req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    next();
-  });*/
   app.get("/otp/:info/", user.sendOTP); //phone-otp
   app.get("/register/:info/", user.register); //password-number
   app.get("/login/:info", user.login); //password-number
