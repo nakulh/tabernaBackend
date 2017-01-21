@@ -1,5 +1,6 @@
 var all = require("./data.controller.js").all;
 var fuse = require("fuse.js");
+var request = require('request');
 var googleMapsClient = require('@google/maps').createClient({
   key: 'AIzaSyCOCwnNxnjm35U24CFKZYMH8akAhBxpqSI'
 });
@@ -51,16 +52,35 @@ module.exports = {
     res.json({array: selectedItems});
   },
   getRoute: function(req, res, next){
-    /*var info = req.params.info;
+    var distance = function (lat1, lon1, lat2, lon2) {
+    var p = 0.017453292519943295;    // Math.PI / 180
+    var c = Math.cos;
+    var a = 0.5 - c((lat2 - lat1) * p)/2 +
+            c(lat1 * p) * c(lat2 * p) *
+            (1 - c((lon2 - lon1) * p))/2;
+
+    return 12742 * Math.asin(Math.sqrt(a)) * 1000; // 2 * R; R = 6371 km
+  };
+    var shops =  require("./data.controller.js").shops;
+    var info = req.params.info;
     var lat = info.split("-")[0].split(",")[0];
-    var lon = info.split("-")[0].split(",")[1];*/
-    googleMapsClient.directions({
-      origin: '23.8151944,86.4415461',
-      destination: '23.8107966,86.4464778'
-    }, function(err, response) {
-      if (!err) {
-        console.log(response.json.results);
+    var lon = info.split("-")[0].split(",")[1];
+    var images = info.split("-").slice(1, info.split("-").length);
+    var availableShops = [];
+    for(var x = 0; x < images.length; x++){
+      for(var y = 0; y < shops.length; y++){
+        for(var z = 0; z < shops[y].items.length; z++){
+          if(shops[y].items[z].image == images[x]){
+            availableShops.push(shops[y]);
+          }
+        }
       }
-    });
+    }
+
+    /*request('https://maps.googleapis.com/maps/api/directions/json?origin=Brooklyn&destination=Queens&mode=transit&key=AIzaSyCOCwnNxnjm35U24CFKZYMH8akAhBxpqSI', function (error, res, body) {
+      if (!error && res.statusCode == 200) {
+        console.log(body); // Show the HTML for the Google homepage.
+      }
+    });*/
   }
 };
